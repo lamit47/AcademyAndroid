@@ -1,7 +1,9 @@
 package com.example.academy_project.apis;
 
 import com.example.academy_project.entities.Login;
+import com.example.academy_project.entities.Register;
 import com.example.academy_project.entities.Token;
+import com.example.academy_project.entities.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -26,5 +28,11 @@ public interface ApiService {
             .create(ApiService.class);
 
     @POST("api/Auth/Token")
-    Call<Token> sendPosts(@Body Login login);
+    Call<Token> getToken(@Body Login login);
+    @POST("api/Auth/Refresh")
+    Call<Token> refreshToken(@Body Token token);
+    @POST("api/User/Register")
+    Call<User> register(@Body Register register);
+    @POST("api/User/Forgot")
+    Call<Boolean> forgotPassword(@Body String str);
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,7 +57,9 @@
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="" />
+            android:hint=""
+            android:ems="10"
+            android:inputType="textPassword" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,6 +69,7 @@
         android:layout_marginBottom="30dp"
         >
         <TextView
+            android:id="@+id/tvToForgotPW"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Quên mật khẩu?"
@@ -96,9 +99,10 @@
         android:layout_marginBottom="30dp"
         >
         <TextView
+            android:id="@+id/tvToRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bạn chưa có tài khoản!"
+            android:text="Bạn chưa có tài khoản?"
             ></TextView>
     </LinearLayout>
 
