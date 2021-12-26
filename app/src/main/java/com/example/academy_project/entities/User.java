@@ -79,4 +79,17 @@ public class User {
     public void setScope(List<String> scope) {
         this.scope = scope;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", pictureId=" + pictureId +
+                ", picture='" + picture + '\'' +
+                ", scope=" + scope +
+                '}';
+    }
 }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.academy_project.apis.ApiService;
 import com.example.academy_project.entities.Login;
 import com.example.academy_project.entities.Token;
+import com.example.academy_project.entities.User;
 
 import java.util.Date;
 
@@ -21,40 +22,59 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
     SharedPreferences sharedPref;
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intent);
+        context = getApplicationContext();
+        sharedPref = context.getSharedPreferences("login", Context.MODE_PRIVATE);
 
-//        Context context = getApplicationContext();
-//        sharedPref = context.getSharedPreferences("login", Context.MODE_PRIVATE);
-//
-//        long RTExpiresStr = sharedPref.getLong("RTExpires", 0);
-//        Date RTExpires = new Date(RTExpiresStr);
-//        Date now = new Date();
-//        String accessToken = sharedPref.getString("accessToken", null);
-//
-//        //Nếu refresh token hết hạn chuyển về trang đăng nhập
-//        if (now.after(RTExpires)) {
-//            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//            startActivity(intent);
-//            return;
-//        }
-//        long ATExpiresStr = sharedPref.getLong("ATExpires", 0);
-//        Date ATExpires = new Date(ATExpiresStr);
-//        // Nếu access token hết hạn làm mới AC bằng refresh token
-//        if (now.after(ATExpires)) {
-//            Toast.makeText(MainActivity.this, "Làm mới token!", Toast.LENGTH_LONG).show();
-//            String refreshToken = sharedPref.getString("refreshToken", null);
-//            refeshToken(refreshToken);
-//        }
+        long RTExpiresStr = sharedPref.getLong("RTExpires", 0);
+        Date RTExpires = new Date(RTExpiresStr);
+        Date now = new Date();
+        String accessToken = sharedPref.getString("accessToken", null);
 
+        //Nếu refresh token hết hạn chuyển về trang đăng nhập
+        if (now.after(RTExpires)) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+        long ATExpiresStr = sharedPref.getLong("ATExpires", 0);
+        Date ATExpires = new Date(ATExpiresStr);
+        // Nếu access token hết hạn làm mới AC bằng refresh token
+        if (now.after(ATExpires)) {
+            Toast.makeText(MainActivity.this, "Làm mới token!", Toast.LENGTH_LONG).show();
+            String refreshToken = sharedPref.getString("refreshToken", null);
+            refeshToken(refreshToken);
+        }
+
+        getUser();
+    }
+
+    public static Context getContextOfApplication(){
+        return context;
+    }
+
+    private void getUser() {
+        ApiService.apiService.getUser().enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+
+                    System.out.println(user.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
     }
 
     private void refeshToken(String refreshToken) {
@@ -68,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Token token = response.body();
 
-                    System.out.println(token.toString());
                     editor.putString("accessToken", token.getAccessToken());
                     editor.putLong("ATExpires", token.getAccessTokenExpires().getTime());
                     editor.commit();
