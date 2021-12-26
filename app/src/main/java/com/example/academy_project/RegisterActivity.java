@@ -10,9 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.academy_project.apis.ApiService;
+import com.example.academy_project.apis.AuthService;
 import com.example.academy_project.entities.Register;
-import com.example.academy_project.entities.Token;
 import com.example.academy_project.entities.User;
 
 import java.util.regex.Matcher;
@@ -77,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerAccount(Register register) {
-        ApiService.apiService.register(register).enqueue(new Callback<User>() {
+        AuthService.authService.register(register).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {

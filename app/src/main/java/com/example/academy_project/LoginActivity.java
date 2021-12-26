@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.academy_project.apis.ApiService;
+import com.example.academy_project.apis.AuthService;
 import com.example.academy_project.entities.Login;
 import com.example.academy_project.entities.Token;
 
@@ -61,7 +61,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void getToken(String email, String password) {
         Login login = new Login(email, password);
-        ApiService.apiService.getToken(login).enqueue(new Callback<Token>() {
+
+        AuthService.authService.getToken(login).enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 SharedPreferences.Editor editor = sharedPref.edit();
@@ -73,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putLong("RTExpires", token.getRefreshTokenExpires().getTime());
                     editor.commit();
                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
                 }

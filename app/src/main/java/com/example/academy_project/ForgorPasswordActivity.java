@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.academy_project.apis.ApiService;
+import com.example.academy_project.apis.AuthService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +38,7 @@ public class ForgorPasswordActivity extends AppCompatActivity {
     }
 
     private void requestNewPassword(String email) {
-        ApiService.apiService.forgotPassword(email).enqueue(new Callback<Boolean>() {
+        AuthService.authService.forgotPassword(email).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 Boolean bool = response.body();
