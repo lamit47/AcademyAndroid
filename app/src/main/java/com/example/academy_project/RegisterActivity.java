@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.academy_project.apis.AuthService;
+import com.example.academy_project.apis.RetrofitClient;
 import com.example.academy_project.entities.Register;
 import com.example.academy_project.entities.User;
 
@@ -23,7 +24,7 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     EditText txtFirstName;
     EditText txtLastName;
     EditText txtEmail;
@@ -76,23 +77,26 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerAccount(Register register) {
-        AuthService.authService.register(register).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(RegisterActivity.this, "Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(RegisterActivity.this, "Email tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
-                }
-            }
+        RetrofitClient.getInstanceWithoutToken()
+                .create(AuthService.class)
+                .register(register)
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this, "Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Email tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
 
-            }
-        });
+                    }
+                });
     }
 
     public static boolean emailValidate(String emailStr) {

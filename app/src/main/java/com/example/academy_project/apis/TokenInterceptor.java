@@ -23,7 +23,7 @@ public class TokenInterceptor implements Interceptor {
 
     public TokenInterceptor(Context ctx) {
         this.ctx = ctx;
-        this.mPrefs= PreferenceManager.getDefaultSharedPreferences(ctx);
+        this.mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class TokenInterceptor implements Interceptor {
             refeshToken(refreshToken);
         }
 
-        newRequest  = chain.request().newBuilder()
+        newRequest = chain.request().newBuilder()
                 .addHeader("Authorization", "Bearer " + accessToken)
                 .build();
 
@@ -65,30 +65,33 @@ public class TokenInterceptor implements Interceptor {
         Token token = new Token();
         token.setRefreshToken(refreshToken);
 
-        AuthService.authService.refreshToken(token).enqueue(new Callback<Token>() {
-            @Override
-            public void onResponse(Call<Token> call, retrofit2.Response<Token> response) {
-                SharedPreferences.Editor editor = mPrefs.edit();
+        RetrofitClient.getInstanceWithoutToken()
+                .create(AuthService.class)
+                .refreshToken(token)
+                .enqueue(new Callback<Token>() {
+                    @Override
+                    public void onResponse(Call<Token> call, retrofit2.Response<Token> response) {
+                        SharedPreferences.Editor editor = mPrefs.edit();
 
-                if (response.isSuccessful()) {
-                    Token token = response.body();
+                        if (response.isSuccessful()) {
+                            Token token = response.body();
 
-                    editor.putString("accessToken", token.getAccessToken());
-                    editor.putLong("ATExpires", token.getAccessTokenExpires().getTime());
-                    editor.commit();
-                } else {
-                    Intent intent = new Intent(ctx, LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    ctx.startActivity(intent);
-                }
-            }
+                            editor.putString("accessToken", token.getAccessToken());
+                            editor.putLong("ATExpires", token.getAccessTokenExpires().getTime());
+                            editor.commit();
+                        } else {
+                            Intent intent = new Intent(ctx, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            ctx.startActivity(intent);
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<Token> call, Throwable t) {
-                Intent intent = new Intent(ctx, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                ctx.startActivity(intent);
-            }
-        });
+                    @Override
+                    public void onFailure(Call<Token> call, Throwable t) {
+                        Intent intent = new Intent(ctx, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        ctx.startActivity(intent);
+                    }
+                });
     }
 }

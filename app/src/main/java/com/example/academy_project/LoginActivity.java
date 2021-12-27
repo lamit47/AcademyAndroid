@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.academy_project.apis.AuthService;
+import com.example.academy_project.apis.RetrofitClient;
 import com.example.academy_project.entities.Login;
 import com.example.academy_project.entities.Token;
 
@@ -62,29 +63,32 @@ public class LoginActivity extends AppCompatActivity {
     private void getToken(String email, String password) {
         Login login = new Login(email, password);
 
-        AuthService.authService.getToken(login).enqueue(new Callback<Token>() {
-            @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-                SharedPreferences.Editor editor = sharedPref.edit();
-                if (response.isSuccessful()) {
-                    Token token = response.body();
-                    editor.putString("accessToken", token.getAccessToken());
-                    editor.putLong("ATExpires", token.getAccessTokenExpires().getTime());
-                    editor.putString("refreshToken", token.getRefreshToken());
-                    editor.putLong("RTExpires", token.getRefreshTokenExpires().getTime());
-                    editor.commit();
-                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
-                }
-            }
+        RetrofitClient.getInstanceWithoutToken()
+                .create(AuthService.class)
+                .getToken(login)
+                .enqueue(new Callback<Token>() {
+                    @Override
+                    public void onResponse(Call<Token> call, Response<Token> response) {
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        if (response.isSuccessful()) {
+                            Token token = response.body();
+                            editor.putString("accessToken", token.getAccessToken());
+                            editor.putLong("ATExpires", token.getAccessTokenExpires().getTime());
+                            editor.putString("refreshToken", token.getRefreshToken());
+                            editor.putLong("RTExpires", token.getRefreshTokenExpires().getTime());
+                            editor.commit();
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<Token> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "2 - Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                    @Override
+                    public void onFailure(Call<Token> call, Throwable t) {
+                        Toast.makeText(LoginActivity.this, "2 - Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

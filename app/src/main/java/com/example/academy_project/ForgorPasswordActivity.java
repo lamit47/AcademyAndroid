@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.academy_project.apis.AuthService;
+import com.example.academy_project.apis.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,23 +39,26 @@ public class ForgorPasswordActivity extends AppCompatActivity {
     }
 
     private void requestNewPassword(String email) {
-        AuthService.authService.forgotPassword(email).enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                Boolean bool = response.body();
-                if (bool) {
-                    Toast.makeText(ForgorPasswordActivity.this, "Mật khẩu mới đã được gửi về email của bạn!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ForgorPasswordActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(ForgorPasswordActivity.this, "Email không tồn tại!", Toast.LENGTH_SHORT).show();
-                }
-            }
+        RetrofitClient.getInstanceWithoutToken()
+                .create(AuthService.class)
+                .forgotPassword(email)
+                .enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        Boolean bool = response.body();
+                        if (bool) {
+                            Toast.makeText(ForgorPasswordActivity.this, "Mật khẩu mới đã được gửi về email của bạn!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ForgorPasswordActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(ForgorPasswordActivity.this, "Email không tồn tại!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
 
-            }
-        });
+                    }
+                });
     }
 }
