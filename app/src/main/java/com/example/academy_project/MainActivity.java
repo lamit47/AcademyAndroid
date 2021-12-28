@@ -9,12 +9,14 @@ import androidx.fragment.app.FragmentManager;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.academy_project.activity.LoginActivity;
 import com.example.academy_project.fragment.TrackStepsFragment;
 import com.example.academy_project.fragment.CoursesFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -34,6 +36,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
         setContentView(R.layout.activity_main);
+
+        if (!isLogin()) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            try {
+                Class fragmentClass = CoursesFragment.class;
+                Fragment fragment = (Fragment) fragmentClass.newInstance();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
