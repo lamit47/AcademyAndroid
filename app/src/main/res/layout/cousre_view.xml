@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/imageCourse"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground"
+
+        />
+
+    <TextView
+        android:id="@+id/nameCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CourseTitle"
+        android:layout_marginLeft="16dp"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+
+
+</LinearLayout>

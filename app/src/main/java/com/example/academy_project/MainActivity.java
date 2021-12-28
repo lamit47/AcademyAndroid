@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = CoursesFragment.class;
                 break;
             case R.id.nav_second_fragment:
-                fragmentClass = CoursesFragment.class;
+                fragmentClass = CourseFragment.class;
                 break;
             case R.id.nav_third_fragment:
                 fragmentClass = CoursesFragment.class;

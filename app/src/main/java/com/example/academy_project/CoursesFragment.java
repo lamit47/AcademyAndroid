@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.academy_project.Adapter.CourseListAdapter;
 import com.example.academy_project.apis.ApiService;
 import com.example.academy_project.apis.RetrofitClient;
 import com.example.academy_project.entities.Course;
@@ -20,14 +23,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CoursesFragment extends Fragment {
-    List<String> listCourse = new ArrayList<>();
-    ArrayAdapter<String> adapter;
+    ArrayList<Course> listCourse;
+    CourseListAdapter courseListAdapter;
+    ListView listViewCourse;
+    View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_courses, container, false);
+        view = inflater.inflate(R.layout.fragment_courses, container, false);
         getListCourse();
         return view;
-    adapter = new ArrayAdapter<>()
 
     }
     public void getListCourse(){
@@ -37,10 +42,20 @@ public class CoursesFragment extends Fragment {
                 if (response.isSuccessful()){
                     List<Course> listcourse = response.body();
                     System.out.println(listcourse.size());
-                    for (Course course:listcourse
-                         ) {
-                        System.out.printf(course.toString());
-                    }
+                    courseListAdapter = new CourseListAdapter(new ArrayList<Course>(listcourse));
+
+                    listViewCourse = view.findViewById(R.id.listCourse);
+                    listViewCourse.setAdapter(courseListAdapter);
+
+                    listViewCourse.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Course c = (Course) courseListAdapter.getItem(position);
+                            //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
+
+
+                        }
+                    });
                 }
 
             }
