@@ -1,4 +1,4 @@
-package com.example.academy_project;
+package com.example.academy_project.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.academy_project.MainActivity;
+import com.example.academy_project.R;
 import com.example.academy_project.apis.AuthService;
 import com.example.academy_project.apis.RetrofitClient;
 import com.example.academy_project.entities.Login;
@@ -31,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_login);
+        setContentView(R.layout.activity_login);
 
         Context context = getApplicationContext();
         sharedPref = context.getSharedPreferences("login", Context.MODE_PRIVATE);

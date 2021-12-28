@@ -1,4 +1,4 @@
-package com.example.academy_project.Adapter;
+package com.example.academy_project.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +12,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CourseListAdapter extends BaseAdapter {
-    //Dữ liệu liên kết bởi Adapter là một mảng các sản phẩm
+public class CoursesAdapter extends BaseAdapter {
     final ArrayList<Course> listCourse;
 
-    public CourseListAdapter(ArrayList<Course> listCourse) {
+    public CoursesAdapter(ArrayList<Course> listCourse) {
         this.listCourse = listCourse;
     }
 
@@ -47,15 +46,18 @@ public class CourseListAdapter extends BaseAdapter {
 
         View viewCourse;
         if (convertView == null) {
-            viewCourse = View.inflate(parent.getContext(), R.layout.cousre_view, null);
-        } else viewCourse = convertView;
+            viewCourse = View.inflate(parent.getContext(), R.layout.view_cousre, null);
+        } else {
+            viewCourse = convertView;
+        }
 
         //Bind sữ liệu phần tử vào View
         Course c = (Course) getItem(position);
-        ImageView imageView  = viewCourse.findViewById(R.id.imageCourse);
-        Picasso.get().load(c.getPicturePath()).into(imageView);
+        if (c.getPicturePath() != null & c.getPicturePath() != "/") {
+            ImageView imageView  = viewCourse.findViewById(R.id.imageCourse);
+            Picasso.get().load(c.getPicturePath()).into(imageView);
+        }
         ((TextView) viewCourse.findViewById(R.id.nameCourse)).setText(String.format(c.getTitle()));
-
 
         return viewCourse;
     }

@@ -14,9 +14,11 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import com.example.academy_project.fragment.TrackStepsFragment;
+import com.example.academy_project.fragment.CoursesFragment;
 import com.google.android.material.navigation.NavigationView;
+
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
         setContentView(R.layout.activity_main);
+
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,25 +54,23 @@ public class MainActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         // Setup drawer view
         setupDrawerContent(nvDrawer);
-// Inflate the header view at runtime
-       // View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header);
-// We can now look up items within the header if needed
-        //ImageView ivHeaderPhoto = headerLayout.findViewById(R.id.imageView);;
+        // We can now look up items within the header if needed
         if (navigationView.getHeaderCount() > 0) {
             // avoid NPE by first checking if there is at least one Header View available
             View headerLayout = navigationView.getHeaderView(0);
         }
     }
+
     private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
-                });
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                selectDrawerItem(menuItem);
+                return true;
+            }
+        });
     }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -84,23 +84,23 @@ public class MainActivity extends AppCompatActivity {
         // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
     }
+
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_first_fragment:
-                Toast.makeText(context,"abc",Toast.LENGTH_SHORT).show();
                 fragmentClass = CoursesFragment.class;
                 break;
             case R.id.nav_second_fragment:
-                fragmentClass = CourseFragment.class;
+                fragmentClass = TrackStepsFragment.class;
                 break;
             case R.id.nav_third_fragment:
                 fragmentClass = CoursesFragment.class;
@@ -108,14 +108,12 @@ public class MainActivity extends AppCompatActivity {
             default:
                 fragmentClass = CoursesFragment.class;
         }
-//
+
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
-       // fragment =(Fragment) LoginActivity.class.newInstance();
-//        fragment = (Fragment) fragmentClass.newInstance();
 
 
         // Insert the fragment by replacing any existing fragment
@@ -130,7 +128,15 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.closeDrawers();
     }
 
-    public static Context getContextOfApplication(){
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public static Context getContextOfApplication() {
         return context;
     }
 
@@ -145,12 +151,5 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,11 +1,6 @@
 package com.example.academy_project.entities;
 
 public class Step {
-//    "id": 0,
-//            "trackId": 0,
-//            "title": "string",
-//            "duration": 0,
-//            "completed": true
     private int id;
     private int trackId;
     private String title;

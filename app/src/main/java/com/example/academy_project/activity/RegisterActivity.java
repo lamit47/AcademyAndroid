@@ -1,4 +1,4 @@
-package com.example.academy_project;
+package com.example.academy_project.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.academy_project.R;
 import com.example.academy_project.apis.AuthService;
 import com.example.academy_project.apis.RetrofitClient;
 import com.example.academy_project.entities.Register;
@@ -35,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_register);
+        setContentView(R.layout.activity_register);
 
         txtFirstName = findViewById(R.id.txtFirstName);
         txtLastName = findViewById(R.id.txtLastName);

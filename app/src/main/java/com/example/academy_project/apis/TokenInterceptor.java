@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.academy_project.LoginActivity;
+import com.example.academy_project.activity.LoginActivity;
 import com.example.academy_project.entities.Token;
 
 import java.io.IOException;
