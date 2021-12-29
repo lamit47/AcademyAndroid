@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +16,7 @@ import com.example.academy_project.R;
 import com.example.academy_project.adapter.TrackStepsAdapter;
 import com.example.academy_project.apis.ApiService;
 import com.example.academy_project.apis.RetrofitClient;
+import com.example.academy_project.entities.Course;
 import com.example.academy_project.entities.TrackStep;
 
 import java.util.ArrayList;
@@ -49,8 +52,19 @@ public class TrackStepsFragment extends Fragment {
 
                             TrackStepsAdapter trackStepsAdapter = new TrackStepsAdapter(new ArrayList<TrackStep>(trackSteps));
 
-                            ListView lvTrackSteps = view.findViewById(R.id.lvTrackSteps);
+                            ExpandableListView lvTrackSteps = view.findViewById(R.id.lvTrackSteps);
                             lvTrackSteps.setAdapter(trackStepsAdapter);
+
+                            lvTrackSteps.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                                @Override
+                                public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+
+                                    long id = trackStepsAdapter.getChildId(i, i1);
+
+                                    Toast.makeText(getActivity().getApplicationContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+                                    return false;
+                                }
+                            });
                         }
                     }
 

@@ -1,9 +1,11 @@
 package com.example.academy_project.adapter;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,7 +16,7 @@ import com.example.academy_project.entities.TrackStep;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrackStepsAdapter extends BaseAdapter {
+public class TrackStepsAdapter extends BaseExpandableListAdapter {
     final ArrayList<TrackStep> listTrackStep;
 
     public TrackStepsAdapter(ArrayList<TrackStep> listTrackStep) {
@@ -22,40 +24,66 @@ public class TrackStepsAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
+    public int getGroupCount() {
         return listTrackStep.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return listTrackStep.get(position);
+    public int getChildrenCount(int i) {
+        return listTrackStep.get(i).getSteps().size();
     }
 
     @Override
-    public long getItemId(int position) {
-        return listTrackStep.get(position).getId();
+    public Object getGroup(int i) {
+        return listTrackStep.get(i);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View viewTrackStep;
-        if (convertView == null) {
-            viewTrackStep = View.inflate(parent.getContext(), R.layout.view_tracksteps, null);
-        } else {
-            viewTrackStep = convertView;
+    public Object getChild(int i, int i1) {
+        return listTrackStep.get(i).getSteps();
+    }
+
+    @Override
+    public long getGroupId(int i) {
+        return listTrackStep.get(i).getId();
+    }
+
+    @Override
+    public long getChildId(int i, int i1) {
+        return listTrackStep.get(i).getSteps().get(i1).getId();
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return false;
+    }
+
+    @Override
+    public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
+        if (view == null) {
+            LayoutInflater li = LayoutInflater.from(viewGroup.getContext());
+            view = li.inflate(R.layout.listview_header, viewGroup, false);
         }
 
-        TrackStep trackStep = (TrackStep) getItem(position);
+        TextView tvHeader = (TextView) view.findViewById(R.id.txtLVHeader);
+        tvHeader.setText(listTrackStep.get(i).getTitle());
+        return view;
+    }
 
-        TextView txtTrackTitle =  viewTrackStep.findViewById(R.id.txtTrackTitle);
-        ListView lvSteps = viewTrackStep.findViewById(R.id.lvSteps);
+    @Override
+    public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
+        if (view == null) {
+            LayoutInflater li = LayoutInflater.from(viewGroup.getContext());
+            view = li.inflate(R.layout.listview_item, viewGroup, false);
+        }
 
-        List<Step> steps = trackStep.getSteps();
-        StepsAdapter stepsAdapter = new StepsAdapter(new ArrayList<Step>(steps));
+        TextView item = (TextView) view.findViewById(R.id.txtLVItem);
+        item.setText(listTrackStep.get(i).getSteps().get(i1).getTitle());
+        return view;
+    }
 
-        txtTrackTitle.setText(trackStep.getTitle());
-        lvSteps.setAdapter(stepsAdapter);
-
-        return viewTrackStep;
+    @Override
+    public boolean isChildSelectable(int i, int i1) {
+        return true;
     }
 }
