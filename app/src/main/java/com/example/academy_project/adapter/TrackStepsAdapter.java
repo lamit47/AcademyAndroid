@@ -1,11 +1,18 @@
 package com.example.academy_project.adapter;
 
+
+
+
+
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+
 
 import com.example.academy_project.R;
 import com.example.academy_project.entities.Step;
@@ -16,6 +23,7 @@ import java.util.List;
 
 public class TrackStepsAdapter extends BaseAdapter {
     final ArrayList<TrackStep> listTrackStep;
+
 
     public TrackStepsAdapter(ArrayList<TrackStep> listTrackStep) {
         this.listTrackStep = listTrackStep;
@@ -48,13 +56,27 @@ public class TrackStepsAdapter extends BaseAdapter {
         TrackStep trackStep = (TrackStep) getItem(position);
 
         TextView txtTrackTitle =  viewTrackStep.findViewById(R.id.txtTrackTitle);
-        ListView lvSteps = viewTrackStep.findViewById(R.id.lvSteps);
-
+//        ListView lvSteps = viewTrackStep.findViewById(R.id.lvSteps);
+        LinearLayout linearLayout = (LinearLayout) viewTrackStep.findViewById(R.id.LL1);
         List<Step> steps = trackStep.getSteps();
-        StepsAdapter stepsAdapter = new StepsAdapter(new ArrayList<Step>(steps));
+        for (Step t: steps
+             ) {
+
+           if(t.getTrackId()==listTrackStep.get(position).getId()){
+               TextView rowTextView = new TextView(viewTrackStep.getContext());
+               rowTextView.setId(t.getId());
+               rowTextView.setText(t.getTitle());
+               linearLayout.addView(rowTextView);
+           }
+        }
+
+
+
+//        List<Step> steps = trackStep.getSteps();
+//        StepsAdapter stepsAdapter = new StepsAdapter(new ArrayList<Step>(steps));
 
         txtTrackTitle.setText(trackStep.getTitle());
-        lvSteps.setAdapter(stepsAdapter);
+//       lvSteps.setAdapter(stepsAdapter);
 
         return viewTrackStep;
     }
