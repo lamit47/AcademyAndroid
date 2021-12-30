@@ -2,9 +2,9 @@ package com.example.academy_project.apis;
 
 import com.example.academy_project.entities.Comment;
 import com.example.academy_project.entities.Course;
-import com.example.academy_project.entities.Login;
+import com.example.academy_project.entities.CourseStep;
 import com.example.academy_project.entities.Question;
-import com.example.academy_project.entities.Token;
+import com.example.academy_project.entities.Step;
 import com.example.academy_project.entities.TrackStep;
 import com.example.academy_project.entities.User;
 
@@ -14,7 +14,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -46,4 +45,7 @@ public interface ApiService {
 
     @DELETE("api/Answer/{Id}")
     Call<Comment> DeletedComment(@Path(value = "Id", encoded = true) String Id);
+
+    @GET("api/Step/{Id}")
+    Call<CourseStep> getStep(@Path(value = "Id", encoded = true) String Id);
 }

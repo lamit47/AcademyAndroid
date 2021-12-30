@@ -1,5 +1,6 @@
 package com.example.academy_project.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.academy_project.R;
+import com.example.academy_project.activity.CourseStepActivity;
 import com.example.academy_project.adapter.TrackStepsAdapter;
 import com.example.academy_project.apis.ApiService;
 import com.example.academy_project.apis.RetrofitClient;
@@ -58,10 +61,15 @@ public class TrackStepsFragment extends Fragment {
                             lvTrackSteps.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                                 @Override
                                 public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-
                                     long id = trackStepsAdapter.getChildId(i, i1);
 
-                                    Toast.makeText(getActivity().getApplicationContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+                                    try {
+                                        CourseStepActivity.setStepId((int) id);
+                                        Intent intent = new Intent(getActivity(), CourseStepActivity.class);
+                                        startActivity(intent);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                     return false;
                                 }
                             });

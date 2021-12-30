@@ -6,5 +6,8 @@
     <TextView
         android:id="@+id/txtLVItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingStart="40dp"
+        android:text="Item"/>
 </LinearLayout>
