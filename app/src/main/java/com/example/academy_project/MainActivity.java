@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.academy_project.activity.LoginActivity;
+import com.example.academy_project.fragment.PersonalInfoFragment;
 import com.example.academy_project.fragment.QuestionsFragment;
 import com.example.academy_project.fragment.TrackStepsFragment;
 import com.example.academy_project.fragment.CoursesFragment;
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = TrackStepsFragment.class;
                 break;
             case R.id.nav_third_fragment:
-                fragmentClass = QuestionsFragment.class;
+                fragmentClass = PersonalInfoFragment.class;
                 break;
             default:
                 fragmentClass = CoursesFragment.class;
