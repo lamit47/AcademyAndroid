@@ -3,18 +3,13 @@ package com.example.academy_project.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.academy_project.R;
-import com.example.academy_project.entities.Step;
 import com.example.academy_project.entities.TrackStep;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TrackStepsAdapter extends BaseExpandableListAdapter {
     final ArrayList<TrackStep> listTrackStep;
