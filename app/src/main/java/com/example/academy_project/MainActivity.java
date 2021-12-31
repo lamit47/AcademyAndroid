@@ -19,6 +19,7 @@ import android.view.View;
 import com.example.academy_project.activity.LoginActivity;
 import com.example.academy_project.fragment.PersonalInfoFragment;
 import com.example.academy_project.fragment.QuestionsFragment;
+import com.example.academy_project.fragment.SettingsFragment;
 import com.example.academy_project.fragment.TrackStepsFragment;
 import com.example.academy_project.fragment.CoursesFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -119,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_info:
                 fragmentClass = PersonalInfoFragment.class;
+                break;
+            case R.id.nav_settings:
+                fragmentClass = SettingsFragment.class;
                 break;
             case R.id.nav_signout:
                 signOut();

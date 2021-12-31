@@ -37,6 +37,7 @@
             android:name=".activity.CourseStepActivity"
             android:exported="true">
         </activity>
+        <receiver android:name=".ReminderBroadcast"/>
     </application>
 
 </manifest>
