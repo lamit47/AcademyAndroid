@@ -13,5 +13,9 @@
             android:id="@+id/nav_info"
             android:icon="@drawable/ic_launcher_foreground"
             android:title="Tài khoản"/>
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:title="Đăng xuất"/>
     </group>
 </menu>

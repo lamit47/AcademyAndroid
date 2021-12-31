@@ -120,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_info:
                 fragmentClass = PersonalInfoFragment.class;
                 break;
+            case R.id.nav_signout:
+                signOut();
+                return;
             default:
                 fragmentClass = CoursesFragment.class;
         }
@@ -166,5 +169,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    public void signOut() {
+        SharedPreferences sharedPref = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+        sharedPref.edit().clear().commit();
+        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(login);
     }
 }
