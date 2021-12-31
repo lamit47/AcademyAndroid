@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.RoundedCorner;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,6 +34,7 @@ import com.example.academy_project.entities.TrackStep;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -106,6 +108,8 @@ public class QuestionFragment extends Fragment {
                 listComments.setAdapter(commentsAdapter);
                 registerForContextMenu(listComments);
 
+
+
             }
 
             @Override
@@ -125,14 +129,28 @@ public class QuestionFragment extends Fragment {
         getActivity().getMenuInflater().inflate(R.menu.drawable_comment,menu);
     }
 
-    @Override
+
+        @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            String id = String.valueOf(info.id);
+            String commentEdit = item.getIntent().toString();
         switch (item.getItemId()){
             case R.id.optEdit:
 
+
                 return true;
             case R.id.optDeleted:
-               
+               RetrofitClient.getInstance().create(ApiService.class).DeletedComment(id).enqueue(new Callback<ResponseBody>() {
+                   @Override
+                   public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                       getComments(Id);
+                   }
+                   @Override
+                   public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getContext().getApplicationContext(),"Bạn không thể xóa comment này!!!",Toast.LENGTH_SHORT).show();
+                   }
+               });
                 return true;
         }
         return super.onContextItemSelected(item);

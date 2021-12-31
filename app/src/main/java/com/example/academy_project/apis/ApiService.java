@@ -10,6 +10,7 @@ import com.example.academy_project.entities.User;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -44,7 +45,7 @@ public interface ApiService {
     Call<Comment> putComment(@Path(value = "Id", encoded = true) String Id,@Body Comment comment);
 
     @DELETE("api/Answer/{Id}")
-    Call<Comment> DeletedComment(@Path(value = "Id", encoded = true) String Id);
+    Call<ResponseBody> DeletedComment(@Path(value = "Id", encoded = true) String Id);
 
     @GET("api/Step/{Id}")
     Call<CourseStep> getStep(@Path(value = "Id", encoded = true) String Id);
