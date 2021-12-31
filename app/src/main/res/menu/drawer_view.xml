@@ -1,17 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_first_fragment"
+            android:id="@+id/nav_course"
             android:icon="@drawable/ic_launcher_foreground"
-            android:title="First"
+            android:title="Khóa học"
             android:checked="true"/>
         <item
-            android:id="@+id/nav_second_fragment"
-            android:icon="@drawable/ic_launcher_foreground"
-            android:title="Second"/>
-        <item
-            android:id="@+id/nav_third_fragment"
+            android:id="@+id/nav_QA"
             android:icon="@drawable/ic_launcher_foreground"
             android:title="Hỏi đáp"/>
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:title="Tài khoản"/>
     </group>
 </menu>

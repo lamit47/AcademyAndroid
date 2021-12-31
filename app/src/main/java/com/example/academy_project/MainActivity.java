@@ -114,13 +114,10 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         Class fragmentClass;
         switch (menuItem.getItemId()) {
-            case R.id.nav_first_fragment:
-                fragmentClass = CoursesFragment.class;
+            case R.id.nav_QA:
+                fragmentClass = QuestionsFragment.class;
                 break;
-            case R.id.nav_second_fragment:
-                fragmentClass = TrackStepsFragment.class;
-                break;
-            case R.id.nav_third_fragment:
+            case R.id.nav_info:
                 fragmentClass = PersonalInfoFragment.class;
                 break;
             default:
