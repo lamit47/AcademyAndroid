@@ -5,6 +5,15 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/btnaddquestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+"
+        >
+
+    </Button>
+
     <ListView
         android:id="@+id/lvQuestion"
         android:layout_width="match_parent"
