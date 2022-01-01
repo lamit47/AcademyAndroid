@@ -1,5 +1,6 @@
 package com.example.academy_project.apis;
 
+import com.example.academy_project.entities.ChangePassword;
 import com.example.academy_project.entities.Comment;
 import com.example.academy_project.entities.Course;
 import com.example.academy_project.entities.CourseStep;
@@ -51,6 +52,9 @@ public interface ApiService {
     @GET("api/Step/{Id}")
     Call<CourseStep> getStep(@Path(value = "Id", encoded = true) String Id);
 
-    @PUT("api/User/Information")
+    @PUT("api/User/Infomation")
     Call<EditInfo> putInfo(@Body EditInfo editInfo);
+
+    @POST("api/User/Password")
+    Call<ResponseBody> postNewPassword(@Body ChangePassword changePassword);
 }

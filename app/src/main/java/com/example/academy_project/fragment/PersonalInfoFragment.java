@@ -73,7 +73,7 @@ public class PersonalInfoFragment extends Fragment {
                                         bundle.putString("firstName", user.getFirstName());
                                         bundle.putString("lastName", user.getLastName());
                                         bundle.putString("email", user.getEmail());
-                                        bundle.putString("picture", user.getPicture());
+                                        //bundle.putString("picture", user.getPicture());
 
                                         Class fragmentClass = EditInfoFragment.class;
                                         Fragment fragment = (Fragment) fragmentClass.newInstance();

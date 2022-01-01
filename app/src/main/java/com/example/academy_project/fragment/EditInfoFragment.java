@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.academy_project.R;
 import com.example.academy_project.activity.RegisterActivity;
@@ -27,10 +28,10 @@ public class EditInfoFragment extends Fragment {
     View view;
     EditText editTextFirstName;
     EditText editTextLastName;
-    EditText editTextEmail;
+    //EditText editTextEmail;
     Button btnSave;
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+//    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+//            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,17 +43,17 @@ public class EditInfoFragment extends Fragment {
     public void getUserInfo() {
         editTextFirstName = view.findViewById(R.id.editTextFirstName);
         editTextLastName = view.findViewById(R.id.editTextLastName);
-        editTextEmail = view.findViewById(R.id.editTextEmail);
+        //editTextEmail = view.findViewById(R.id.editTextEmail);
         btnSave = view.findViewById(R.id.btnSave);
 
         editTextFirstName.setText(getArguments().getString("firstName"));
         editTextLastName.setText(getArguments().getString("lastName"));
-        editTextEmail.setText(getArguments().getString("email"));
+        //editTextEmail.setText(getArguments().getString("email"));
 
         btnSave.setOnClickListener(view -> {
             String firstName = editTextFirstName.getText().toString();
             String lastName = editTextLastName.getText().toString();
-            String email = editTextEmail.getText().toString();
+            //String email = editTextEmail.getText().toString();
 
             if (firstName == null || firstName.length() < 1) {
                 Toast.makeText(getContext(), "Họ không được để trống!", Toast.LENGTH_SHORT).show();
@@ -60,12 +61,13 @@ public class EditInfoFragment extends Fragment {
             } else if (lastName == null || lastName.length() < 1) {
                 Toast.makeText(getContext(), "Tên không được để trống!", Toast.LENGTH_SHORT).show();
                 return;
-            } else if (!emailValidate(email)) {
-                Toast.makeText(getContext(), "Email không hợp lệ!", Toast.LENGTH_SHORT).show();
-                return;
             }
+//            else if (!emailValidate(email)) {
+//                Toast.makeText(getContext(), "Email không hợp lệ!", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
 
-            EditInfo editInfo = new EditInfo(email, firstName, lastName, getArguments().getString("picture"));
+            EditInfo editInfo = new EditInfo(getArguments().getString("email"), firstName, lastName);
             editUserInfo(editInfo);
         });
     }
@@ -79,6 +81,16 @@ public class EditInfoFragment extends Fragment {
                     public void onResponse(Call<EditInfo> call, Response<EditInfo> response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(getContext(), "Lưu thành công!", Toast.LENGTH_SHORT).show();
+                            try {
+                            Class fragmentClass = PersonalInfoFragment.class;
+                            Fragment fragment = (Fragment) fragmentClass.newInstance();
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "Err!", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -89,8 +101,8 @@ public class EditInfoFragment extends Fragment {
                 });
     }
 
-    public static boolean emailValidate(String emailStr) {
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
-        return matcher.find();
-    }
+//    public static boolean emailValidate(String emailStr) {
+//        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+//        return matcher.find();
+//    }
 }
