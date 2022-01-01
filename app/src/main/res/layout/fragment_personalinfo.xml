@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textSize="25dp"
             android:textStyle="bold"
-            android:text="Personal Information" />
+            android:text="Thông tin cá nhân" />
     </LinearLayout>
 
     <LinearLayout
@@ -31,10 +31,10 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="First name:" />
+            android:text="Họ :" />
 
         <TextView
             android:id="@+id/txtFirstName"
@@ -52,10 +52,10 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="37dp"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Last name:" />
+            android:text="Tên :" />
 
         <TextView
             android:id="@+id/txtLastName"
@@ -73,10 +73,10 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="50dp"
+            android:layout_width="49dp"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Email:" />
+            android:text="Email :" />
 
         <TextView
             android:id="@+id/txtEmail"
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Avatar" />
+            android:text="Ảnh đại diện" />
     </LinearLayout>
 
     <LinearLayout
@@ -124,17 +124,17 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnChangePass"
+            android:id="@+id/btnChangePassword"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
-            android:text="Change password"
+            android:text="Đổi mật khẩu"
             />
         <Button
             android:id="@+id/btnEdit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Edit"
+            android:text="Sửa thông tin"
             />
     </LinearLayout>
 

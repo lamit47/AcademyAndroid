@@ -31,6 +31,7 @@ public class PersonalInfoFragment extends Fragment {
     User user;
     String imageUri = "https://www.stregasystem.com/img/users/user.png";
     Button btnEdit;
+    Button btnChangePassword;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,11 +49,13 @@ public class PersonalInfoFragment extends Fragment {
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (response.isSuccessful()) {
                             user = response.body();
+
                             txtFirstname = (TextView) view.findViewById(R.id.txtFirstName);
                             txtLastname = (TextView) view.findViewById(R.id.txtLastName);
                             txtEmail = (TextView) view.findViewById(R.id.txtEmail);
                             imgAvatar = (ImageView) view.findViewById(R.id.imgAvatar);
                             btnEdit = (Button) view.findViewById(R.id.btnEdit);
+                            btnChangePassword = (Button) view.findViewById(R.id.btnChangePassword);
 
                             txtFirstname.setText(user.getFirstName());
                             txtLastname.setText(user.getLastName());
@@ -66,14 +69,35 @@ public class PersonalInfoFragment extends Fragment {
 
                             btnEdit.setOnClickListener(view -> {
                                     try {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("firstName", user.getFirstName());
+                                        bundle.putString("lastName", user.getLastName());
+                                        bundle.putString("email", user.getEmail());
+                                        bundle.putString("picture", user.getPicture());
+
                                         Class fragmentClass = EditInfoFragment.class;
                                         Fragment fragment = (Fragment) fragmentClass.newInstance();
                                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+
+                                        fragment.setArguments(bundle);
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
+
                              });
+
+                            btnChangePassword.setOnClickListener(view -> {
+                                try {
+                                    Class fragmentClass = ChangePasswordFragment.class;
+                                    Fragment fragment = (Fragment) fragmentClass.newInstance();
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
+
                         }
 
                     }

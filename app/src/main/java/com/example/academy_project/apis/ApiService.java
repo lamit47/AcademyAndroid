@@ -3,6 +3,7 @@ package com.example.academy_project.apis;
 import com.example.academy_project.entities.Comment;
 import com.example.academy_project.entities.Course;
 import com.example.academy_project.entities.CourseStep;
+import com.example.academy_project.entities.EditInfo;
 import com.example.academy_project.entities.Question;
 import com.example.academy_project.entities.Step;
 import com.example.academy_project.entities.TrackStep;
@@ -49,4 +50,7 @@ public interface ApiService {
 
     @GET("api/Step/{Id}")
     Call<CourseStep> getStep(@Path(value = "Id", encoded = true) String Id);
+
+    @PUT("api/User/Information")
+    Call<EditInfo> putInfo(@Body EditInfo editInfo);
 }
