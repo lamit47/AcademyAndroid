@@ -28,11 +28,15 @@ public class ReminderBroadcast extends BroadcastReceiver {
         NotificationManagerCompat nmc = NotificationManagerCompat.from(context);
         nmc.notify(200, builder.build());
 
-        String intentId = intent.getExtras().getString("Id");
-        if (intentId.equals("notifyReminder"))
-        {
-            int[] config = getReminderConfig(context);
-            setAlarm(context, config[0], config[1]);
+        try {
+            String intentId = intent.getExtras().getString("Id");
+            if (intentId.equals("notifyReminder"))
+            {
+                int[] config = getReminderConfig(context);
+                setAlarm(context, config[0], config[1]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
