@@ -1,5 +1,6 @@
 package com.example.academy_project.apis;
 
+import com.example.academy_project.entities.Category;
 import com.example.academy_project.entities.Comment;
 import com.example.academy_project.entities.Course;
 import com.example.academy_project.entities.CourseStep;
@@ -26,6 +27,9 @@ public interface ApiService {
     @GET("api/Course")
     Call<List<Course>> getListCourse();
 
+    @GET("api/Category")
+    Call<List<Category>> getListCategory();
+
     @GET("api/Course/{courseId}/TrackSteps")
     Call<List<TrackStep>> getTrackStep(@Path(value = "courseId", encoded = true) String courseId);
 
@@ -40,6 +44,9 @@ public interface ApiService {
 
     @POST("api/Answer")
     Call<Comment> postComent(@Body Comment comment);
+
+    @POST("api/Question")
+    Call<Question> postQuestion(@Body Question question);
 
     @PUT("api/Answer/{Id}")
     Call<Comment> putComment(@Path(value = "Id", encoded = true) String Id,@Body Comment comment);

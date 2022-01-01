@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,17 @@ public class QuestionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_questions, container, false);
         getListQuestion();
+        Button btnadd = view.findViewById(R.id.btnaddquestion);
+        btnadd.setOnClickListener((view)->{
+            try {
+                Class fragmentClass = AddquestionFragment.class;
+                Fragment fragment = (Fragment) fragmentClass.newInstance();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         return view;
 
     }
