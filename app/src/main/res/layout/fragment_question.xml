@@ -2,83 +2,99 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp"
         android:background="@drawable/boder_question"
-        >
+        android:orientation="vertical"
+        android:padding="10dp">
+
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textStyle="bold"
-            android:textSize="20dp"
             android:paddingStart="15dp"
-            android:paddingEnd="15dp"/>
+            android:paddingEnd="15dp"
+            android:text="Title"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/txtContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:id="@+id/txtContent"
-            >
-        </TextView>
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:padding="10dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hãy nhập bình luận của bạn:"
-                android:textStyle="bold"
-                android:textSize="18dp"
                 android:paddingStart="15dp"
-                android:paddingEnd="15dp"/>
+                android:paddingEnd="15dp"
+                android:text="Hãy nhập bình luận của bạn:"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/txtComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:id="@+id/txtComment"
-                />
+                android:layout_marginTop="10dp" />
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Đăng"
-                android:id="@+id/btnSubmit"/>
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đăng" />
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Sửa" />
+                <Button
+                    android:id="@+id/btnCannel"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Hủy" />
+            </LinearLayout>
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bình luận:"
-            android:textSize="18dp">
+            android:textSize="18dp"/>
 
-        </TextView>
         <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/lvComment"
-            >
-
-        </ListView>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
-
 
 
 </LinearLayout>

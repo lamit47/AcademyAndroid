@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/optEdit"
-        android:title="Edit"/>
+        android:title="Sửa"/>
     <item
-        android:title="Deleted"
-        android:id="@+id/optDeleted"/>
+        android:title="Xóa"
+        android:id="@+id/optDelete"/>
 </menu>

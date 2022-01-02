@@ -104,7 +104,7 @@ public class TrackStepsFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<List<TrackStep>> call, Throwable t) {
-                        System.out.println(t.toString());
+                        Toast.makeText(getActivity(), "Kết nối đến máy chủ thất bại!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -2,19 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="tao cau hoi"
-            android:textSize="30dp"
-            android:textStyle="bold">
-
-        </TextView>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Viết câu hỏi"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,13 +23,13 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="tieude" />
+            android:text="Tiêu đề" />
 
         <EditText
-            android:id="@+id/txttieude"
+            android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="" />
+            android:hint="Nhập tiêu đề" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,33 +37,47 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="Nội dung" />
+
+        <EditText
+            android:id="@+id/txtContent"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:inputType="text|textMultiLine"
+            android:hint="Nhập nội dung câu hỏi" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
-            android:text="noi dung"
             android:layout_width="80dp"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/txtnoidung"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=""
-            android:ems="10" />
+            android:text="Danh mục" />
+
+        <Spinner
+            android:id="@+id/spCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/list_category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
     <Button
-        android:id="@+id/addquestion"
-        android:layout_width="match_parent"
+        android:id="@+id/btnSubmit"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="tao dau hoi"
-        >
-
-    </Button>
+        android:text="Đăng"/>
 
 
 </LinearLayout>

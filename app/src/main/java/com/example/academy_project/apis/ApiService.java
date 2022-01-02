@@ -47,7 +47,7 @@ public interface ApiService {
     Call<List<Comment>> getComments(@Path(value = "Id", encoded = true) String Id);
 
     @POST("api/Answer")
-    Call<Comment> postComent(@Body Comment comment);
+    Call<Comment> postComment(@Body Comment comment);
 
     @POST("api/Question")
     Call<Question> postQuestion(@Body Question question);
@@ -56,7 +56,7 @@ public interface ApiService {
     Call<Comment> putComment(@Path(value = "Id", encoded = true) String Id,@Body Comment comment);
 
     @DELETE("api/Answer/{Id}")
-    Call<ResponseBody> DeletedComment(@Path(value = "Id", encoded = true) String Id);
+    Call<ResponseBody> deleteComment(@Path(value = "Id", encoded = true) String Id);
 
     @GET("api/Step/{Id}")
     Call<CourseStep> getStep(@Path(value = "Id", encoded = true) String Id);
@@ -70,8 +70,4 @@ public interface ApiService {
     @Multipart
     @POST("api/Picture/Profile")
     Call<ResponseBody> uploadImage(@Part MultipartBody.Part image);
-//    Call<Response> uploadImage(@Header("Authorization") String authorization,
-//                               @Part("file\"; filename=\"pp.png\" ") RequestBody file,
-//                               @Part("FirstName") RequestBody fname,
-//                               @Part("Id") RequestBody id);
 }

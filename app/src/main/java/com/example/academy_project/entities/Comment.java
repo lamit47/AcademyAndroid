@@ -3,8 +3,6 @@ package com.example.academy_project.entities;
 import java.util.Date;
 
 public class Comment {
-
-
     private int id;
     private int questionId;
     private int userId;

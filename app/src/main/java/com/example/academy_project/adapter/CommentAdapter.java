@@ -15,10 +15,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CommentsAdapter extends BaseAdapter {
+public class CommentAdapter extends BaseAdapter {
     final ArrayList<Comment> listComment;
 
-    public CommentsAdapter(ArrayList<Comment> listComment) {
+    public CommentAdapter(ArrayList<Comment> listComment) {
         this.listComment = listComment;
     }
 

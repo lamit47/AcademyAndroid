@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="5dp"
     android:layout_marginStart="8dp"
@@ -11,8 +10,6 @@
     android:layout_marginEnd="16dp"
     android:layout_marginRight="16dp"
     android:background="@drawable/boder_question">
-
-
 
     <TextView
         android:id="@+id/txtTitle"
@@ -37,8 +34,6 @@
         android:layout_marginRight="16dp"
         android:textStyle="normal"
         android:textSize="18dp"
-        android:textColor="#03A9F4">
-
-    </TextView>
+        android:textColor="#03A9F4"/>
 
 </LinearLayout>

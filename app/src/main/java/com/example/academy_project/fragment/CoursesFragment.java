@@ -95,7 +95,7 @@ public class CoursesFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<List<Course>> call, Throwable t) {
-                        System.out.println(t.toString());
+                        Toast.makeText(getActivity(), "Kết nối đến máy chủ thất bại!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

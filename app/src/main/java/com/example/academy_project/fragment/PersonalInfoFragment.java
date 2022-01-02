@@ -76,11 +76,12 @@ public class PersonalInfoFragment extends Fragment {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (response.isSuccessful()) {
-                             user = response.body();
+                            user = response.body();
 
                             SharedPreferences shareRef = getContext().getSharedPreferences(
                                     "user-info", getContext().MODE_PRIVATE);
                             SharedPreferences.Editor info = shareRef.edit();
+                            info.putInt("id", user.getId());
                             info.putString("firstName", user.getFirstName());
                             info.putString("lastName", user.getLastName());
                             info.putString("email", user.getEmail());
@@ -106,23 +107,23 @@ public class PersonalInfoFragment extends Fragment {
                             }
 
                             btnEdit.setOnClickListener(view -> {
-                                    try {
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("firstName", user.getFirstName());
-                                        bundle.putString("lastName", user.getLastName());
-                                        bundle.putString("email", user.getEmail());
-                                        //bundle.putString("picture", user.getPicture());
+                                try {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("firstName", user.getFirstName());
+                                    bundle.putString("lastName", user.getLastName());
+                                    bundle.putString("email", user.getEmail());
+                                    //bundle.putString("picture", user.getPicture());
 
-                                        Class fragmentClass = EditInfoFragment.class;
-                                        Fragment fragment = (Fragment) fragmentClass.newInstance();
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+                                    Class fragmentClass = EditInfoFragment.class;
+                                    Fragment fragment = (Fragment) fragmentClass.newInstance();
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
 
-                                        fragment.setArguments(bundle);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                             });
+                                    fragment.setArguments(bundle);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
 
                             btnChangePassword.setOnClickListener(view -> {
                                 try {
@@ -145,14 +146,12 @@ public class PersonalInfoFragment extends Fragment {
     }
 
     public boolean checkInternet() {
-        getContext();
         ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
             return true;
         }
-        else
-            return false;
+        return false;
     }
 
     public void getUserInfoOffline() {
@@ -258,5 +257,5 @@ public class PersonalInfoFragment extends Fragment {
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                     }
                 });
-   }
+    }
 }

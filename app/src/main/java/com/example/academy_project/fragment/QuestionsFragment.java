@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -31,10 +32,11 @@ public class QuestionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_questions, container, false);
         getListQuestion();
-        Button btnadd = view.findViewById(R.id.btnaddquestion);
-        btnadd.setOnClickListener((view)->{
+
+        Button btnAddQuestion = view.findViewById(R.id.btnAddQuestion);
+        btnAddQuestion.setOnClickListener((view) -> {
             try {
-                Class fragmentClass = AddquestionFragment.class;
+                Class fragmentClass = AddQuestionFragment.class;
                 Fragment fragment = (Fragment) fragmentClass.newInstance();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
@@ -47,10 +49,13 @@ public class QuestionsFragment extends Fragment {
     }
 
     public void getListQuestion() {
-        RetrofitClient.getInstance().create(ApiService.class).getListQuestions().enqueue(new Callback<List<Question>>() {
+        ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
+        Call<List<Question>> call = apiService.getListQuestions();
+
+        call.enqueue(new Callback<List<Question>>() {
             @Override
             public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Question> listQuestion = response.body();
                     QuestionAdapter questionAdapter = new QuestionAdapter(new ArrayList<Question>(listQuestion));
 
@@ -60,18 +65,16 @@ public class QuestionsFragment extends Fragment {
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Question q = (Question) questionAdapter.getItem(position);
-                                    //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
-
-                                    try {
-                                        QuestionFragment.setId(q.getId());
-                                        Class fragmentClass = QuestionFragment.class;
-                                        Fragment fragment = (Fragment) fragmentClass.newInstance();
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
+                            try {
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("questionId", (int) id);
+                                QuestionFragment questionFragment = new QuestionFragment();
+                                questionFragment.setArguments(bundle);
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentManager.beginTransaction().replace(R.id.flContent, questionFragment).addToBackStack(null).commit();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
                 }
@@ -79,48 +82,8 @@ public class QuestionsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Question>> call, Throwable t) {
-
+                Toast.makeText(getActivity(), "Kết nối đến máy chủ thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
-//        RetrofitClient.getInstance()
-//                .create(ApiService.class)
-//                .getListQuestion()
-//                .enqueue(new Callback<List<Question>>() {
-//                    @Override
-//                    public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
-//                        if (response.isSuccessful()) {
-//                            List<Question> lsitQuestion = response.body();
-//                            CoursesAdapter coursesAdapter = new CoursesAdapter(new ArrayList<Course>(listcourse));
-//
-//                            ListView lvCourses = view.findViewById(R.id.lvCourses);
-//                            lvCourses.setAdapter(coursesAdapter);
-//
-//                            lvCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                                @Override
-//                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                                    Course c = (Course) coursesAdapter.getItem(position);
-//                                    //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
-//
-//                                    try {
-//                                        TrackStepsFragment.setCourseId(c.getId());
-//                                        Class fragmentClass = TrackStepsFragment.class;
-//                                        Fragment fragment = (Fragment) fragmentClass.newInstance();
-//                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//
-//                                }
-//                            });
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<List<Course>> call, Throwable t) {
-//                        System.out.println(t.toString());
-//                    }
-//                });
     }
 }

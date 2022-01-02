@@ -7,17 +7,15 @@
     android:padding="10dp">
 
     <Button
-        android:id="@+id/btnaddquestion"
-        android:layout_width="match_parent"
+        android:layout_gravity="end"
+        android:id="@+id/btnAddQuestion"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
-        >
-
-    </Button>
+        android:text="+  Thêm câu hỏi"/>
 
     <ListView
         android:id="@+id/lvQuestion"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
