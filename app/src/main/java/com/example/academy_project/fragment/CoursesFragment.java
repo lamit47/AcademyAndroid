@@ -1,19 +1,26 @@
 package com.example.academy_project.fragment;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.academy_project.R;
 import com.example.academy_project.adapter.CoursesAdapter;
 import com.example.academy_project.apis.ApiService;
 import com.example.academy_project.apis.RetrofitClient;
+import com.example.academy_project.database.CourseDB;
 import com.example.academy_project.entities.Course;
 
 import java.util.ArrayList;
@@ -29,12 +36,45 @@ public class CoursesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_courses, container, false);
-        getListCourse();
+
+        if (isNetworkAvailable()) {
+            getListCourseFromAPI();
+        } else {
+            getListCourseFromDB();
+        }
+
+        final SwipeRefreshLayout srl = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getListCourseFromAPI();
+                if (srl.isRefreshing()) {
+                    srl.setRefreshing(false);
+                }
+            }
+        });
         return view;
 
     }
 
-    public void getListCourse() {
+    private void getListCourseFromDB() {
+        List<Course> list = CourseDB.getInstance(getActivity()).courseDAO().getAllCourse();
+        setDataToAdapter(list);
+    }
+
+    private void nukeCourses() {
+        CourseDB.getInstance(getActivity()).courseDAO().nukeCourses();
+    }
+
+    private void addCourse(Course course) {
+        if (course.getId() == 0 || TextUtils.isEmpty(course.getTitle()) || TextUtils.isEmpty(course.getPicturePath())) {
+            return;
+        }
+        CourseDB.getInstance(getActivity()).courseDAO().insertCourse(course);
+    }
+
+    private void getListCourseFromAPI() {
         RetrofitClient.getInstance()
                 .create(ApiService.class)
                 .getListCourse()
@@ -43,29 +83,12 @@ public class CoursesFragment extends Fragment {
                     public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
                         if (response.isSuccessful()) {
                             List<Course> listcourse = response.body();
-                            CoursesAdapter coursesAdapter = new CoursesAdapter(new ArrayList<Course>(listcourse));
+                            setDataToAdapter(listcourse);
 
-                            ListView lvCourses = view.findViewById(R.id.lvCourses);
-                            lvCourses.setAdapter(coursesAdapter);
-
-                            lvCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Course c = (Course) coursesAdapter.getItem(position);
-                                    //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
-
-                                    try {
-                                        TrackStepsFragment.setCourseId(c.getId());
-                                        Class fragmentClass = TrackStepsFragment.class;
-                                        Fragment fragment = (Fragment) fragmentClass.newInstance();
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-
-                                }
-                            });
+                            nukeCourses();
+                            for (Course c : listcourse) {
+                                addCourse(c);
+                            }
                         }
 
                     }
@@ -75,5 +98,39 @@ public class CoursesFragment extends Fragment {
                         System.out.println(t.toString());
                     }
                 });
+    }
+
+    private void setDataToAdapter(List<Course> list) {
+        if (list.size() < 1) {
+            Toast.makeText(getActivity(), "Danh sách bài học trống!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        CoursesAdapter coursesAdapter = new CoursesAdapter(new ArrayList<Course>(list));
+
+        ListView lvCourses = view.findViewById(R.id.lvCourses);
+        lvCourses.setAdapter(coursesAdapter);
+
+        lvCourses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("courseId", (int) id);
+                    TrackStepsFragment trackStepsFragment = new TrackStepsFragment();
+                    trackStepsFragment.setArguments(bundle);
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.flContent, trackStepsFragment).addToBackStack(null).commit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

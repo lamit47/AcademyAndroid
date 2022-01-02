@@ -1,13 +1,19 @@
 package com.example.academy_project.activity;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.academy_project.R;
 import com.example.academy_project.apis.ApiService;
 import com.example.academy_project.apis.RetrofitClient;
+import com.example.academy_project.database.CourseDB;
 import com.example.academy_project.entities.CourseStep;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -22,7 +28,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CourseStepActivity extends YouTubeBaseActivity {
-    static int stepId = 0;
     static final String API_KEY = "AIzaSyBv3JkI699bSuXB54-N46Hn8le9ElrBaSc";
 
     @Override
@@ -30,14 +35,35 @@ public class CourseStepActivity extends YouTubeBaseActivity {
         super.onCreate(bundle);
         setContentView(R.layout.fragment_step);
 
-        if (stepId != 0) {
-            getStep();
+        int stepId = getIntent().getExtras().getInt("stepId", 0);
+        if (stepId == 0) {
+            return;
+        }
+
+        if (isNetworkAvailable()) {
+            getCourseStepFromAPI(stepId);
         } else {
-            //TODO
+            getCourseStepFromDB(stepId);
         }
     }
 
-    public void getStep() {
+    private void getCourseStepFromDB(int stepId) {
+        CourseStep step = CourseDB.getInstance(getApplicationContext()).courseStepDAO().selectCourseStep(stepId);
+        setDataToView(step);
+    }
+
+    private void deleteCourseStep(int stepId) {
+        CourseDB.getInstance(getApplicationContext()).courseStepDAO().deleteCourseStep(stepId);
+    }
+
+    private void addCourseStep(CourseStep step) {
+        if (step.equals(null)) {
+            return;
+        }
+        CourseDB.getInstance(getApplicationContext()).courseStepDAO().insertCourseStep(step);
+    }
+
+    private void getCourseStepFromAPI(int stepId) {
         ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
         Call<CourseStep> call = apiService.getStep(String.valueOf(stepId));
         call.enqueue(new Callback<CourseStep>() {
@@ -45,31 +71,47 @@ public class CourseStepActivity extends YouTubeBaseActivity {
             public void onResponse(Call<CourseStep> call, Response<CourseStep> response) {
                 if (response.isSuccessful()) {
                     CourseStep step = response.body();
+                    setDataToView(step);
 
-                    TextView txtTitle = findViewById(R.id.txtTitle);
-                    TextView txtContent = findViewById(R.id.txtContent);
-
-                    txtTitle.setText(step.getTitle());
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        txtContent.setText(Html.fromHtml(step.getContent(), Html.FROM_HTML_MODE_COMPACT));
-                    } else {
-                        txtContent.setText(Html.fromHtml(step.getContent()));
-                    }
-
-                    String videoId = extractYTId(step.getEmbedLink());
-                    loadYTPlayer(videoId);
+                    deleteCourseStep(stepId);
+                    addCourseStep(step);
                 }
             }
 
             @Override
             public void onFailure(Call<CourseStep> call, Throwable t) {
-                t.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Lỗi kết nối với máy chủ!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void loadYTPlayer(String videoId) {
+    private void setDataToView(CourseStep step) {
+        try {
+            TextView txtTitle = findViewById(R.id.txtTitle);
+            TextView txtContent = findViewById(R.id.txtContent);
+
+            txtTitle.setText(step.getTitle());
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                txtContent.setText(Html.fromHtml(step.getContent(), Html.FROM_HTML_MODE_COMPACT));
+            } else {
+                txtContent.setText(Html.fromHtml(step.getContent()));
+            }
+
+            if (isNetworkAvailable()) {
+                String videoId = extractYTId(step.getEmbedLink());
+                loadYTPlayer(videoId);
+            } else {
+                YouTubePlayerView yt = findViewById(R.id.ytPlayer);
+                yt.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Bạn cần internet để tải bài học này!", Toast.LENGTH_SHORT).show();
+            this.finish();
+        }
+    }
+
+    private void loadYTPlayer(String videoId) {
         YouTubePlayerView yt = findViewById(R.id.ytPlayer);
 
         YouTubePlayer.OnInitializedListener onInitializedListener;
@@ -88,7 +130,7 @@ public class CourseStepActivity extends YouTubeBaseActivity {
         yt.initialize(API_KEY, onInitializedListener);
     }
 
-    public static String extractYTId(String ytUrl) {
+    private static String extractYTId(String ytUrl) {
         String vId = null;
         Pattern pattern = Pattern.compile(
                 "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
@@ -100,7 +142,9 @@ public class CourseStepActivity extends YouTubeBaseActivity {
         return vId;
     }
 
-    public static void setStepId(int id) {
-        stepId = id;
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

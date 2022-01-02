@@ -1,17 +1,27 @@
 package com.example.academy_project.entities;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity(tableName = "TrackSteps")
 public class TrackStep {
-
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = false)
     private int id;
+    @ColumnInfo(name = "courseId")
     private int courseId;
+    @ColumnInfo(name = "title")
     private String title;
+    @ColumnInfo(name = "steps")
     private List<Step> steps;
 
+    @Ignore
     public TrackStep() {
     }
-
 
     public TrackStep(int id, int courseId, String title, List<Step> steps) {
         this.id = id;
