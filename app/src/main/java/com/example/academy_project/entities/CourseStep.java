@@ -1,11 +1,24 @@
 package com.example.academy_project.entities;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "CourseSteps")
 public class CourseStep {
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = false)
     private int id;
+    @Ignore
     private int trackId;
+    @ColumnInfo(name = "title")
     private String title;
+    @Ignore
     private int duration;
+    @ColumnInfo(name = "content")
     private String content;
+    @Ignore
     private String embedLink;
 
     public CourseStep() {

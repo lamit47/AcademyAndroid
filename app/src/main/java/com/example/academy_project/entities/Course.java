@@ -1,19 +1,37 @@
 package com.example.academy_project.entities;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity(tableName = "Courses")
 public class Course {
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = false)
     private int id;
+    @Ignore
     private int lecturerId;
+    @Ignore
     private int categoryId;
+    @Ignore
     private int pictureId;
+    @ColumnInfo(name = "title")
     private String title;
+    @Ignore
     private String description;
     private int credits;
+    @Ignore
     private Date createdAt;
+    @Ignore
     private Date updatedAt;
+    @Ignore
     private boolean isDeleted;
+    @ColumnInfo(name = "picturePath")
     private String picturePath;
+    @Ignore
     private double progress;
 
     @Override
