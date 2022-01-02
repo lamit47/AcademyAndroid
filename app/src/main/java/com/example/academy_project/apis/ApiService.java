@@ -52,6 +52,9 @@ public interface ApiService {
     @POST("api/Question")
     Call<Question> postQuestion(@Body Question question);
 
+    @PUT("api/Question/{Id}")
+    Call<Question> putQuestion(@Path(value = "Id", encoded = true) String Id,@Body Question question);
+
     @PUT("api/Answer/{Id}")
     Call<Comment> putComment(@Path(value = "Id", encoded = true) String Id,@Body Comment comment);
 

@@ -59,11 +59,14 @@ public class AddQuestionFragment extends Fragment {
                 public void onResponse(Call<Question> call, Response<Question> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(getActivity(), "Đăng câu hỏi thành công!", Toast.LENGTH_SHORT).show();
+                        Question q = response.body();
                         try {
-                            Class fragmentClass = QuestionsFragment.class;
-                            Fragment fragment = (Fragment) fragmentClass.newInstance();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("questionId", q.getId());
+                            QuestionFragment questionFragment = new QuestionFragment();
+                            questionFragment.setArguments(bundle);
                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+                            fragmentManager.beginTransaction().replace(R.id.flContent, questionFragment).addToBackStack(null).commit();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

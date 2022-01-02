@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.academy_project.R;
 import com.example.academy_project.adapter.CommentAdapter;
@@ -39,6 +40,7 @@ public class QuestionFragment extends Fragment {
     private int questionId = 0;
     private CommentAdapter commentAdapter;
     private EditText txtContent;
+    private TextView txtEdit;
     private Button btnSubmit;
     private Button btnCancel;
     private Button btnEdit;
@@ -62,6 +64,20 @@ public class QuestionFragment extends Fragment {
         btnCancel = view.findViewById(R.id.btnCancel);
         btnEdit = view.findViewById(R.id.btnEdit);
         txtContent = view.findViewById(R.id.txtComment);
+        txtEdit = view.findViewById(R.id.txtEdit);
+
+        txtEdit.setOnClickListener(v -> {
+            try {
+                Bundle bundle = new Bundle();
+                bundle.putInt("questionId", questionId);
+                EditQuestionFragment editQuestionFragment = new EditQuestionFragment();
+                editQuestionFragment.setArguments(bundle);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, editQuestionFragment).addToBackStack(null).commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         btnSubmit.setOnClickListener(v -> {
             Comment comment = new Comment();
