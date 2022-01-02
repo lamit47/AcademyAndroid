@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activity.LoginActivity">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,11 +15,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign in"
+            android:text="Đăng nhập"
             android:textSize="30dp"
-            android:textStyle="bold">
-
-        </TextView>
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +37,7 @@
             android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="" />
+            android:hint="Nhập địa chỉ email" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,59 +50,15 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Password" />
+            android:text="Mật khẩu" />
 
         <EditText
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=""
             android:ems="10"
+            android:hint="Nhập mật khẩu"
             android:inputType="textPassword" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="30dp"
-        >
-        <TextView
-            android:id="@+id/tvToForgotPW"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quên mật khẩu?"
-            ></TextView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:paddingStart="40dp"
-            android:paddingEnd="40dp"
-            android:text="Log in"></Button>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="30dp"
-        >
-        <TextView
-            android:id="@+id/tvToRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bạn chưa có tài khoản?"
-            ></TextView>
     </LinearLayout>
 
     <LinearLayout
@@ -112,18 +67,62 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
-            android:layout_marginEnd="10dp"
-            android:text="F"></Button>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:text="G"></Button>
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:text="Đăng nhập"/>
+
 
     </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvToForgotPW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quên mật khẩu?"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvToRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bạn chưa có tài khoản?"/>
+    </LinearLayout>
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <Button-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:backgroundTint="@color/black"-->
+    <!--            android:layout_marginEnd="10dp"-->
+    <!--            android:text="F"></Button>-->
+    <!--        <Button-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:backgroundTint="@color/black"-->
+    <!--            android:text="G"></Button>-->
+
+    <!--    </LinearLayout>-->
 
 
 </LinearLayout>

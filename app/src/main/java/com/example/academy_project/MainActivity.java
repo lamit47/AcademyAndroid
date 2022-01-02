@@ -181,6 +181,8 @@ public class MainActivity extends AppCompatActivity {
     public void signOut() {
         SharedPreferences sharedPref = context.getSharedPreferences("login", Context.MODE_PRIVATE);
         sharedPref.edit().clear().commit();
+        sharedPref = context.getSharedPreferences("user-info", Context.MODE_PRIVATE);
+        sharedPref.edit().clear().commit();
         Intent login = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(login);
     }

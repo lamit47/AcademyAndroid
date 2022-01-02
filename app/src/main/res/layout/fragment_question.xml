@@ -75,7 +75,7 @@
                     android:visibility="gone"
                     android:text="Sửa" />
                 <Button
-                    android:id="@+id/btnCannel"
+                    android:id="@+id/btnCancel"
                     android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -111,7 +111,7 @@ public class TrackStepsFragment extends Fragment {
 
     private void setDataToAdapter(List<TrackStep> trackSteps) {
         if (trackSteps.size() < 1) {
-            Toast.makeText(getActivity(), "Danh sách bài học trống!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Danh sách bài học trống! Hãy kết nối mạng để tải bài học này.", Toast.LENGTH_SHORT).show();
             return;
         }
         TrackStepsAdapter trackStepsAdapter = new TrackStepsAdapter(new ArrayList<TrackStep>(trackSteps));

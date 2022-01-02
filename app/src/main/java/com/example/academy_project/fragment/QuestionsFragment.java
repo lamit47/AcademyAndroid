@@ -1,5 +1,9 @@
 package com.example.academy_project.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,9 +35,17 @@ public class QuestionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_questions, container, false);
-        getListQuestion();
 
         Button btnAddQuestion = view.findViewById(R.id.btnAddQuestion);
+        ListView listView = view.findViewById(R.id.lvQuestion);
+        if (!isNetworkAvailable()) {
+            listView.setVisibility(View.GONE);
+            btnAddQuestion.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "Bạn đang offline!", Toast.LENGTH_SHORT).show();
+            return view;
+        }
+
+        getListQuestion();
         btnAddQuestion.setOnClickListener((view) -> {
             try {
                 Class fragmentClass = AddQuestionFragment.class;
@@ -85,5 +97,11 @@ public class QuestionsFragment extends Fragment {
                 Toast.makeText(getActivity(), "Kết nối đến máy chủ thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

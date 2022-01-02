@@ -6,17 +6,25 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.academy_project.MainActivity;
 import com.example.academy_project.R;
+import com.example.academy_project.apis.ApiService;
 import com.example.academy_project.apis.AuthService;
 import com.example.academy_project.apis.RetrofitClient;
 import com.example.academy_project.entities.Login;
 import com.example.academy_project.entities.Token;
+import com.example.academy_project.entities.User;
+import com.example.academy_project.fragment.ChangePasswordFragment;
+import com.example.academy_project.fragment.EditInfoFragment;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("refreshToken", token.getRefreshToken());
                             editor.putLong("RTExpires", token.getRefreshTokenExpires().getTime());
                             editor.commit();
+
+                            saveUserInfo();
                             Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -90,6 +100,33 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Token> call, Throwable t) {
                         Toast.makeText(LoginActivity.this, "2 - Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void saveUserInfo() {
+        RetrofitClient.getInstance()
+                .create(ApiService.class)
+                .getUser()
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.isSuccessful()) {
+                            User user = response.body();
+
+                            SharedPreferences shareRef = getSharedPreferences("user-info", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = shareRef.edit();
+                            editor.putInt("id", user.getId());
+                            editor.putString("firstName", user.getFirstName());
+                            editor.putString("lastName", user.getLastName());
+                            editor.putString("email", user.getEmail());
+                            editor.putString("picturePath", user.getPicture());
+                            editor.commit();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
                     }
                 });
     }

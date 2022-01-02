@@ -40,7 +40,7 @@ public class QuestionFragment extends Fragment {
     private CommentAdapter commentAdapter;
     private EditText txtContent;
     private Button btnSubmit;
-    private Button btnCannel;
+    private Button btnCancel;
     private Button btnEdit;
     private Comment editComment;
 
@@ -59,7 +59,7 @@ public class QuestionFragment extends Fragment {
         getComments();
 
         btnSubmit = view.findViewById(R.id.btnSubmit);
-        btnCannel = view.findViewById(R.id.btnCannel);
+        btnCancel = view.findViewById(R.id.btnCancel);
         btnEdit = view.findViewById(R.id.btnEdit);
         txtContent = view.findViewById(R.id.txtComment);
 
@@ -74,11 +74,11 @@ public class QuestionFragment extends Fragment {
             editComment.setContent(txtContent.getText().toString());
             putComment(editComment);
         });
-        btnCannel.setOnClickListener(v -> {
+        btnCancel.setOnClickListener(v -> {
             txtContent.setText("");
             btnSubmit.setVisibility(View.VISIBLE);
             btnEdit.setVisibility(View.GONE);
-            btnCannel.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
         });
 
         return view;
@@ -118,7 +118,7 @@ public class QuestionFragment extends Fragment {
                             txtContent.setText("");
                             btnSubmit.setVisibility(View.VISIBLE);
                             btnEdit.setVisibility(View.GONE);
-                            btnCannel.setVisibility(View.GONE);
+                            btnCancel.setVisibility(View.GONE);
                             Toast.makeText(getActivity(), "Sửa bình luận thành công!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getActivity(), "Sửa bình luận thất bại, vui lòng kiểm tra lại nội dung!", Toast.LENGTH_SHORT).show();
@@ -217,7 +217,7 @@ public class QuestionFragment extends Fragment {
                 txtContent.setText(comment.getContent());
                 btnSubmit.setVisibility(View.GONE);
                 btnEdit.setVisibility(View.VISIBLE);
-                btnCannel.setVisibility(View.VISIBLE);
+                btnCancel.setVisibility(View.VISIBLE);
                 return true;
             case R.id.optDelete:
                 deleteComment((int) info.id);

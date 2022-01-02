@@ -15,11 +15,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="Đăng ký tài khoản"
             android:textSize="30dp"
-            android:textStyle="bold">
-
-        </TextView>
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -33,13 +31,13 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="First Name" />
+            android:text="Họ" />
 
         <EditText
             android:id="@+id/txtFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="" />
+            android:hint="Nhập họ" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,13 +50,13 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Last Name" />
+            android:text="Tên" />
 
         <EditText
             android:id="@+id/txtLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="" />
+            android:hint="Nhập tên" />
     </LinearLayout>
 
     <LinearLayout
@@ -77,7 +75,7 @@
             android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=""
+            android:hint="Nhập địa chỉ email"
             android:inputType="textEmailAddress" />
     </LinearLayout>
 
@@ -91,13 +89,13 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Password" />
+            android:text="Mật khẩu" />
 
         <EditText
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=""
+            android:hint="Nhập mật khẩu"
             android:ems="10"
             android:inputType="textPassword"  />
     </LinearLayout>
@@ -113,13 +111,13 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Confirm" />
+            android:text="Xác nhận" />
 
         <EditText
             android:id="@+id/txtPasswordConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=""
+            android:hint="Nhập lại mật khẩu"
             android:ems="10"
             android:inputType="textPassword"  />
     </LinearLayout>
@@ -137,26 +135,26 @@
             android:backgroundTint="@color/black"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
-            android:text="Sign up"></Button>
+            android:text="Đăng ký"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+<!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal">-->
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:layout_marginEnd="10dp"
-            android:text="F"></Button>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:text="G"></Button>
+    <!--        <Button-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:backgroundTint="@color/black"-->
+    <!--            android:layout_marginEnd="10dp"-->
+    <!--            android:text="F"></Button>-->
+    <!--        <Button-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:backgroundTint="@color/black"-->
+    <!--            android:text="G"></Button>-->
 
-    </LinearLayout>
+    <!--    </LinearLayout>-->
 </LinearLayout>

@@ -19,9 +19,11 @@ public class ReminderBroadcast extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String lastName = getLoginUseName(context);
+        String title = "Hey " + lastName + ", đã đến giờ học bài rồi :)";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyCourse")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Hey student, đã đến giờ học bài rồi :)")
+                .setContentTitle(title)
                 .setContentText("Hãy dành 30p phút mỗi ngày để học bài nhé!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
@@ -104,5 +106,11 @@ public class ReminderBroadcast extends BroadcastReceiver {
     public void clearConfig(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
         sharedPref.edit().clear().commit();
+    }
+
+    private String getLoginUseName(Context context) {
+        SharedPreferences shareRef = context.getSharedPreferences("user-info", Context.MODE_PRIVATE);
+        String lastName = shareRef.getString("lastName", null);
+        return lastName;
     }
 }

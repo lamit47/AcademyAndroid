@@ -62,6 +62,12 @@ public class PersonalInfoFragment extends Fragment {
         if (checkInternet()) {
             getUserInfo();
         } else {
+            btnSelect = view.findViewById(R.id.btnSelect);
+            btnChangePassword = view.findViewById(R.id.btnChangePassword);
+            btnEdit = view.findViewById(R.id.btnEdit);
+            btnSelect.setVisibility(View.INVISIBLE);
+            btnChangePassword.setVisibility(View.INVISIBLE);
+            btnEdit.setVisibility(View.INVISIBLE);
             getUserInfoOffline();
         }
         handleUploadImage();
