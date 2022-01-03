@@ -6,7 +6,7 @@
     android:gravity="center_horizontal">
 
     <TextView
-        android:paddingTop="100dp"
+        android:paddingTop="150dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Đặt thời gian nhắc học bài"/>
@@ -26,10 +26,34 @@
             android:layout_height="wrap_content"
             android:text="Lưu"/>
         <Button
-            android:id="@+id/btnCannel"
+            android:id="@+id/btnCancel"
             android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tắt"/>
+    </LinearLayout>
+
+    <TextView
+        android:paddingTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tải khóa học để xem khi offline"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tải"/>
+        <Button
+            android:id="@+id/btnDownloadCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:visibility="gone"/>
     </LinearLayout>
 </LinearLayout>

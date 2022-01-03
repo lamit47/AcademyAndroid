@@ -1,19 +1,21 @@
 package com.example.academy_project.activity;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 
 import com.example.academy_project.R;
+import com.example.academy_project.DownloadService;
 import com.example.academy_project.apis.ApiService;
 import com.example.academy_project.apis.RetrofitClient;
 import com.example.academy_project.database.CourseDB;
@@ -36,7 +38,7 @@ public class CourseStepActivity extends YouTubeBaseActivity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.fragment_step);
+        setContentView(R.layout.activity_coursestep);
 
         int stepId = getIntent().getExtras().getInt("stepId", 0);
         if (stepId == 0) {

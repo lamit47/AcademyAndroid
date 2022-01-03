@@ -1,6 +1,7 @@
 package com.example.academy_project.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -12,10 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.academy_project.DownloadService;
 import com.example.academy_project.R;
 import com.example.academy_project.adapter.CoursesAdapter;
 import com.example.academy_project.apis.ApiService;

@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.academy_project.entities.Course;
+import com.example.academy_project.entities.Step;
 import com.example.academy_project.entities.TrackStep;
 
 import java.util.List;
@@ -20,5 +21,5 @@ public interface TrackStepDAO {
     List<TrackStep> getListTrackStep(int courseId);
 
     @Query("DELETE FROM TrackSteps WHERE courseId = :courseId")
-    public void deleteTrackStepByCourseId(int courseId);
+    void deleteTrackStepByCourseId(int courseId);
 }

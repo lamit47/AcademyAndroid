@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/activity_coursestep.xml" value="0.3625" />
         <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/activity_forgotpassword.xml" value="0.2078125" />
         <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/activity_login.xml" value="0.2078125" />
         <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/activity_register.xml" value="0.2078125" />
@@ -11,7 +12,7 @@
         <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/fragment_personalinfo.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/fragment_question.xml" value="0.240625" />
         <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/fragment_questions.xml" value="0.240625" />
-        <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/fragment_settings.xml" value="0.146875" />
+        <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
         <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/fragment_tracksteps.xml" value="0.146875" />
         <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/listview_header.xml" value="0.240625" />
         <entry key="..\:/Users/trinh/AndroidStudioProjects/AcademyAndroid/app/src/main/res/layout/view_cousre.xml" value="0.20260416666666667" />
