@@ -2,24 +2,24 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_course"
-            android:icon="@drawable/ic_launcher_foreground"
+            android:icon="@drawable/ic_book"
             android:title="Khóa học"
             android:checked="true"/>
         <item
             android:id="@+id/nav_QA"
-            android:icon="@drawable/ic_launcher_foreground"
+            android:icon="@drawable/ic_question"
             android:title="Hỏi đáp"/>
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_launcher_foreground"
+            android:icon="@drawable/ic_setting"
             android:title="Cài đặt"/>
         <item
             android:id="@+id/nav_info"
-            android:icon="@drawable/ic_launcher_foreground"
+            android:icon="@drawable/ic_user"
             android:title="Tài khoản"/>
         <item
             android:id="@+id/nav_signout"
-            android:icon="@drawable/ic_launcher_foreground"
+            android:icon="@drawable/ic_sign_out"
             android:title="Đăng xuất"/>
     </group>
 </menu>

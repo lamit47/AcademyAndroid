@@ -56,7 +56,7 @@ public class DownloadService extends Service {
                 .setContentTitle("Đang tải dữ liệu......")
                 .setContentText("Quá trình này có thể mất nhiều thời gian.")
                 .setAutoCancel(true)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_graduation_cap)
                 .build();
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

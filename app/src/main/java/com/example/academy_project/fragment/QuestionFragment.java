@@ -66,6 +66,9 @@ public class QuestionFragment extends Fragment {
         txtContent = view.findViewById(R.id.txtComment);
         txtEdit = view.findViewById(R.id.txtEdit);
 
+
+
+
         txtEdit.setOnClickListener(v -> {
             try {
                 Bundle bundle = new Bundle();
@@ -178,6 +181,10 @@ public class QuestionFragment extends Fragment {
                             TextView txtContent = view.findViewById(R.id.txtContent);
                             txtTitle.setText(q.getTitle());
                             txtContent.setText(Html.fromHtml(q.getContent()));
+                            //
+                            if(getLoginUserId()==q.getUserId()){
+                                txtEdit.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
 

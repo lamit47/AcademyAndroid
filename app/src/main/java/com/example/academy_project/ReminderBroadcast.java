@@ -28,7 +28,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
         String lastName = getLoginUseName(context);
         String title = "Hey " + lastName + ", đã đến giờ học bài rồi :)";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyCourse")
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_graduation_cap)
                 .setContentTitle(title)
                 .setContentText("Hãy dành 30p phút mỗi ngày để học bài nhé!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
