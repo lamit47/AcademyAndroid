@@ -13,19 +13,27 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.academy_project.activity.CourseStepActivity;
+
 import java.util.Calendar;
 
 public class ReminderBroadcast extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Intent i = new Intent(context, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
+
         String lastName = getLoginUseName(context);
         String title = "Hey " + lastName + ", đã đến giờ học bài rồi :)";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyCourse")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(title)
                 .setContentText("Hãy dành 30p phút mỗi ngày để học bài nhé!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
 
         NotificationManagerCompat nmc = NotificationManagerCompat.from(context);
         nmc.notify(200, builder.build());
