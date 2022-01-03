@@ -232,6 +232,7 @@ public class QuestionFragment extends Fragment {
 
         if (getLoginUserId() != comment.getUserId()) {
             Toast.makeText(getContext(), "Bạn không có quyền để thao tác với bình luận này!", Toast.LENGTH_SHORT).show();
+            return true;
         }
 
         switch (item.getItemId()) {
